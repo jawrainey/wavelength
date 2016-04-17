@@ -26,6 +26,13 @@ def index():
     return render_template('index.html')
 
 
+@app.route("/role",  methods=['POST'])
+def role():
+    if request.method == 'POST':
+        session['role'] = request.form['role']
+        return redirect(url_for('chat'))
+
+
 @app.route("/selection", methods=['GET', 'POST'])
 def selection():
     import os
