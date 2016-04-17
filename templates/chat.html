@@ -45,7 +45,7 @@
 
       // SERVER emits CLIENT message to be displayed to others.
       socket.on('message', function(data) {
-        
+
         if(data.role == "listener"){
           var appendSpeaker = '<li class="other"><div class="msg"><div class="author">Listener</div><p>'+data.message+'</p><time>'+showTime()+'</time></div></li>';
           $('#chat2').append(appendSpeaker).html();
@@ -53,7 +53,7 @@
         else{
           var appendListener = '<li class="self"><div class="msg"><div class="author">Speaker</div><p>'+ data.message +'</p><time>'+showTime()+'</time></div></li>';
           $('#chat2').append(appendListener).html();
-          
+
         }
       });
 
@@ -64,6 +64,8 @@
       }
 
     });
+
+
   </script>
 </head>
 <body>
