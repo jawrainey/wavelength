@@ -12,11 +12,11 @@
 <body>
 <div class="wrapper">
   <div class="main-content container">
-    {% for item in [1,2,3,4,5,6,7,8,9,10,11,12] %}
+    {% for item in imgs %}
       <div class="col-md-4 col-sm-6 margin-bottom-30">
         <div class="position-relative">
           <a>
-          <img class="img-responsive" src="{{ url_for('static', filename='img/1.jpg', _external=True) }}" alt="portfolio">
+          <img class="img-responsive" src="{{ url_for('static', filename='img/selection/' + item, _external=True) }}" alt="portfolio">
           </a>
           <div class="overlay"></div>
         </div>

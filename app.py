@@ -6,8 +6,12 @@ app.debug = True
 app.config['SECRET_KEY'] = 'secretsecretsecretterces'
 socketio = SocketIO(app)
 
+# ??
 available_rooms = []
+# ??
 listeners = {}
+# ??
+selected_imgs = []
 
 
 @app.route("/",  methods=['GET', 'POST'])
@@ -24,9 +28,11 @@ def index():
 
 @app.route("/selection", methods=['GET', 'POST'])
 def selection():
+    import os
+    files = os.listdir(os.path.join(app.static_folder, 'img/selection'))
     if request.method == 'POST':
         return redirect(url_for('input'))
-    return render_template('selection.html')
+    return render_template('selection.html', imgs=files)
 
 
 @app.route("/input", methods=['GET', 'POST'])
