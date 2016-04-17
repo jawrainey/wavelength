@@ -14,50 +14,27 @@
 <div class="wrapper">
     <div class="main-content container">
         <div class="row">
-            <div class="chosen col-md-4 col-sm-6 margin-bottom-30">
-                <div class="position-relative">
-                                  <img class="img-responsive" src="{{ url_for('static',
-                filename='img/1.jpg', _external=True) }}" alt="portfolio">
-
-                </div>
-                <textarea class="img-description" name="Text1" cols="40" rows="5" placeholder="Type here!"></textarea>
-                <span class="text-chars">140</span>
+          {% for item in imgs %}
+          <div class="col-md-4 col-sm-6 margin-bottom-30">
+            <div class="position-relative">
+              <img src="{{ url_for('static', filename='img/selection/' + item, _external=True) }}" class="img-responsive">
             </div>
-            <div class="chosen col-md-4 col-sm-6 margin-bottom-30">
-                <div class="position-relative">
-
-                                  <img class="img-responsive" src="{{ url_for('static',
-                filename='img/2.jpg', _external=True) }}" alt="portfolio">
-
-
-                </div>
-                <textarea class="img-description" name="Text2" cols="40" rows="5" placeholder="Type here!"></textarea>
-                <span class="text-chars">140</span>
-            </div>
-            <div class="chosen col-md-4 col-sm-6 margin-bottom-30">
-                <div class="position-relative">
-
-                                  <img class="img-responsive" src="{{ url_for('static',
-                filename='img/3.jpg', _external=True) }}" alt="portfolio">
-
-                </div>
-                <textarea class="img-description" name="Text3" cols="40" rows="5" placeholder="Type here!"></textarea>
-                <span class="text-chars">140</span>
-            </div>
-        </div>
+            <textarea class="img-description" name="Text1" cols="40" rows="5" placeholder="Type here!"></textarea>
+            <span class="text-chars">140</span>
+          </div>
+          {% endfor %}
+      </div>
     <form method="POST" class="form-group text-center">
       <input type="submit" class="btn btn-primary margin-top-20" id="submit"
       name="submit" value="Submit">
     </form>
-
     </div>
-
 </div>
-<!-- jQuery 1.12.3 -->
-<script src="js/jquery-1.12.3.min.js"></script>
-<!-- Bootstrap 3.2.0 -->
-<script src="js/bootstrap.min.js"></script>
-<script type="text/javascript">
+
+<script src="{{ url_for('static', filename='js/jquery-1.12.3.min.js', _external=True) }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js', _external=True) }}"></script>
+
+<script>
     $("textarea").bind("input propertychange", function () {
         console.log($(this).val().length);
         var limit = $(this).closest(".chosen").find("span");
