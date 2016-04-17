@@ -38,8 +38,9 @@ def selection():
     import os
     files = os.listdir(os.path.join(app.static_folder, 'img/selection'))
     if request.method == 'POST':
+        selected_imgs = request.get_json()['imgs']
         # TODO: Receive selected images & populate 'selected_imgs'
-        return redirect(url_for('input'))
+        print 'Now we want to redirect... blah'
     return render_template('selection.html', imgs=files)
 
 
