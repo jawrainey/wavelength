@@ -38,9 +38,7 @@ def selection():
     import os
     files = os.listdir(os.path.join(app.static_folder, 'img/selection'))
     if request.method == 'POST':
-        print 'FUCK IT!!'
         # TODO: Receive selected images & populate 'selected_imgs'
-        print request.form['imgs']
         return redirect(url_for('input'))
     return render_template('selection.html', imgs=files)
 
@@ -101,13 +99,9 @@ def message(message):
     # request.sid will only work if it's the speaker sending a message...
     # if it's a listener, then a lookup (associated room) needs to be made.
     role = session['role']
-    print role
     if 'listener' in role:
-        print listeners
         room = listeners[request.sid]
-        print room
     else:
-        print role
         room = request.sid
     emit('message', {'message': message,'role': role}, room=room)
 
