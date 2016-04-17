@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, request
+from flask import Flask, render_template, session, request, redirect, url_for
 from flask_socketio import SocketIO, join_room, emit
 
 app = Flask(__name__)
@@ -6,8 +6,12 @@ app.debug = True
 app.config['SECRET_KEY'] = 'secretsecretsecretterces'
 socketio = SocketIO(app)
 
+# ??
 available_rooms = []
+# ??
 listeners = {}
+# Should contain a map {img:text, img:text, img:text}
+selected_imgs = []
 
 
 @app.route("/",  methods=['GET', 'POST'])
@@ -15,14 +19,48 @@ def index():
     if request.method == 'POST':
         if 'Speaker' in request.form['submit']:
             session['role'] = 'speaker'
+            return redirect(url_for('selection'))
         else:
             session['role'] = 'listener'
-        return render_template('chat.html')
+        return redirect(url_for('chat'))
     return render_template('index.html')
 
 
+@app.route("/role",  methods=['POST'])
+def role():
+    if request.method == 'POST':
+        session['role'] = request.form['role']
+        return redirect(url_for('chat'))
+
+
+@app.route("/selection", methods=['GET', 'POST'])
+def selection():
+    import os
+    files = os.listdir(os.path.join(app.static_folder, 'img/selection'))
+    if request.method == 'POST':
+        # TODO: Receive selected images & populate 'selected_imgs'
+        print request.form['imgs']
+        return redirect(url_for('input'))
+    return render_template('selection.html', imgs=files)
+
+
+@app.route("/input", methods=['GET', 'POST'])
+def input():
+    # Populate the form with the 'selected imgs'
+    if request.method == 'POST':
+        return redirect(url_for('chat'))
+    files = ['1.jpg', '2.jpg', '3.jpg']
+    return render_template('input.html', imgs=files)
+
+
+@app.route("/chat", methods=['GET', 'POST'])
+def chat():
+    # Populate the form with the image AND text...
+    return render_template('chat.html')
+
+
 @socketio.on('start', namespace='/chat')
-def chat(message):
+def room_selection(message):
     # Sent by clients (users) when they select a role (speaker/listener)
     role = session.get('role')
     # The speakers room is going to be the sessionID /chat/<sid>
