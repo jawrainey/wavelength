@@ -56,7 +56,9 @@ def input():
 @app.route("/chat", methods=['GET', 'POST'])
 def chat():
     # Populate the form with the image AND text...
-    files = {'1.jpg': 'lots of text', '2.jpg': 'lots of text2', '3.jpg': 'lots of 3'}
+    files = {'1.jpg': 'Bacon ipsum dolor amet tri-tip boudin beef ribs, jerky venison turducken beef salami jowl doner bacon picanha short ribs brisket.',
+             '2.jpg': 'Bacon ipsum dolor amet tri-tip boudin beef ribs, jerky venison turducken beef salami jowl doner bacon picanha short ribs brisket.',
+             '3.jpg': 'Bacon ipsum dolor amet tri-tip boudin beef ribs, jerky venison turducken beef salami jowl doner bacon picanha short ribs brisket.'}
     return render_template('chat.html', imgs=files)
 
 
