@@ -20,75 +20,80 @@
     <link href="{{ url_for('static', filename='css/style.css', _external=True) }}" rel="stylesheet">
 
 
-  <script src="http://code.jquery.com/jquery-2.2.3.min.js"></script>
-  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-  <script>
-    $(document).ready(function() {
-      socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
-      // CLIENT: emit to open connection and begin conversation.
-      socket.on('connect', function() { socket.emit('start', {});});
+    <script src="http://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script>
+        $(document).ready(function () {
+            socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
+            // CLIENT: emit to open connection and begin conversation.
+            socket.on('connect', function () {
+                socket.emit('start', {});
+            });
 
-      // SERVER emits initial welcome message to other in room.
-      socket.on('status', function(data) {
-        var appendMessage = '<li class="chat-init"><div class="msg"><div class="author">System</div><p>'+data.message+'</p><time>'+showTime()+'</time></div></li>';
-        $('#chat2').append(appendMessage).html();
-        // $('#chat1').val($('#chat1').val() + data.message + '\n');
-      });
+            // SERVER emits initial welcome message to other in room.
+            socket.on('status', function (data) {
+                var appendMessage = '<li class="chat-init"><div class="msg"><div class="author">System</div><p>' + data.message + '</p><time>' + showTime() + '</time></div></li>';
+                $('#chat2').append(appendMessage).html();
+                // $('#chat1').val($('#chat1').val() + data.message + '\n');
+            });
 
-      // CLIENT emits message to be displayed to other users in the room.
-      $('#text').keypress(function(e) {
-        if (e.which == 13 && !e.shiftKey) {
-          socket.emit('message', $('#text').val());
-          $('#text').blur().val('');
-        }
-      });
+            // CLIENT emits message to be displayed to other users in the room.
+            $('#text').keypress(function (e) {
+                if (e.which == 13 && !e.shiftKey) {
+                    socket.emit('message', $('#text').val());
+                    $('#text').blur().val('');
+                }
+            });
 
-      // SERVER emits CLIENT message to be displayed to others.
-      socket.on('message', function(data) {
+            // SERVER emits CLIENT message to be displayed to others.
+            socket.on('message', function (data) {
 
-        if(data.role == "listener"){
-          var appendSpeaker = '<li class="other"><div class="msg"><div class="author">Listener</div><p>'+data.message+'</p><time>'+showTime()+'</time></div></li>';
-          $('#chat2').append(appendSpeaker).html();
-        }
-        else{
-          var appendListener = '<li class="self"><div class="msg"><div class="author">Speaker</div><p>'+ data.message +'</p><time>'+showTime()+'</time></div></li>';
-          $('#chat2').append(appendListener).html();
+                if (data.role == "listener") {
+                    var appendSpeaker = '<li class="other"><div class="msg"><div class="author">Listener</div><p>' + data.message + '</p><time>' + showTime() + '</time></div></li>';
+                    $('#chat2').append(appendSpeaker).html();
+                }
+                else {
+                    var appendListener = '<li class="self"><div class="msg"><div class="author">Speaker</div><p>' + data.message + '</p><time>' + showTime() + '</time></div></li>';
+                    $('#chat2').append(appendListener).html();
 
-        }
-      });
+                }
+            });
 
-      function showTime(){
-        var date = new Date();
-        var getTime = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
-        return getTime;
-      }
+            function showTime() {
+                var date = new Date();
+                var getTime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                return getTime;
+            }
 
-    });
+        });
 
 
-  </script>
+    </script>
 </head>
 <body>
-<div class="main-content container">
-    <div class="row">
-          {% for image, text in imgs.items() %}
-          <div class="col-md-4 col-sm-6 margin-bottom-30">
-            <div class="position-relative">
-              <img src="{{ url_for('static', filename='img/selection/' + image, _external=True) }}" class="img-responsive">
-            </div>
+<div class="wrapper">
+    <div class="main-content container">
+        <div class="row">
+            {% for image, text in imgs.items() %}
+            <div class="col-md-4 col-sm-6 margin-bottom-30">
+                <div class="position-relative">
+                    <img src="{{ url_for('static', filename='img/selection/' + image, _external=True) }}"
+                         class="img-responsive">
+                </div>
 
-            <div class="overlay overlay-chat">
-              <div class="portfolio-title text-center">
-                <h4 class="font-nixie">{{ text }}</h4>
-              </div>
-            </div>
+                <div class="overlay overlay-chat">
+                    <div class="portfolio-title text-center">
+                        <h4 class="font-nixie">{{ text }}</h4>
+                    </div>
+                </div>
 
-          </div>
-          {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+        <ol class="chat row" id="chat2">
+        </ol>
+        <input class="textarea" id="text" type="text" placeholder="Enter your message here">
     </div>
-    <ol class="chat row" id="chat2">
-    </ol>
-    <input  class="textarea" id="text" type="text" placeholder="Enter your message here">
 </div>
 </body>
 </html>
