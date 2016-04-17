@@ -40,6 +40,10 @@ def selection():
     if request.method == 'POST':
         selected_imgs = request.get_json()['imgs']
         # TODO: Receive selected images & populate 'selected_imgs'
+<<<<<<< HEAD
+=======
+        return redirect(url_for('input'))
+>>>>>>> 6ddf57067fc8dac4cf873f1e27103f8081f287e1
     return render_template('selection.html', imgs=files)
 
 
