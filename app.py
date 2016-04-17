@@ -39,6 +39,7 @@ def selection():
     files = os.listdir(os.path.join(app.static_folder, 'img/selection'))
     if request.method == 'POST':
         # TODO: Receive selected images & populate 'selected_imgs'
+        print request.form['imgs']
         return redirect(url_for('input'))
     return render_template('selection.html', imgs=files)
 
