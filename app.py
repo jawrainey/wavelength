@@ -48,7 +48,8 @@ def input():
     # Populate the form with the 'selected imgs'
     if request.method == 'POST':
         return redirect(url_for('chat'))
-    return render_template('input.html')
+    files = ['1.jpg', '2.jpg', '3.jpg']
+    return render_template('input.html', imgs=files)
 
 
 @app.route("/chat", methods=['GET', 'POST'])
