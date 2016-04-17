@@ -227,7 +227,6 @@ blockquote {
 
 .main-content {
     padding-top: 105px;
-    padding-bottom: 105px;
 }
 
 /*************************************************************/
@@ -906,4 +905,10 @@ footer a:active {
 }
 .select-container {
     height: 17em;
+}
+#submit {
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
+    display: block;
 }
