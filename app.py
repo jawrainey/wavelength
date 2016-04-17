@@ -10,7 +10,7 @@ socketio = SocketIO(app)
 available_rooms = []
 # ??
 listeners = {}
-# ??
+# Should contain a map {img:text, img:text, img:text}
 selected_imgs = []
 
 
@@ -31,13 +31,14 @@ def selection():
     import os
     files = os.listdir(os.path.join(app.static_folder, 'img/selection'))
     if request.method == 'POST':
+        # TODO: Receive selected images & populate 'selected_imgs'
         return redirect(url_for('input'))
     return render_template('selection.html', imgs=files)
 
 
 @app.route("/input", methods=['GET', 'POST'])
 def input():
-    # Needs a better name...
+    # Populate the form with the 'selected imgs'
     if request.method == 'POST':
         return redirect(url_for('chat'))
     return render_template('input.html')
@@ -45,6 +46,7 @@ def input():
 
 @app.route("/chat", methods=['GET', 'POST'])
 def chat():
+    # Populate the form with the image AND text...
     return render_template('chat.html')
 
 
