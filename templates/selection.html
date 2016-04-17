@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wavelength</title>
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700%7cNixie+One%7cTinos:400,400italic' rel='stylesheet'>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css', _external=True) }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/generics.css', _external=True) }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css', _external=True) }}" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+  <div class="main-content container">
+    {% for item in [1,2,3,4,5,6,7,8,9,10,11,12] %}
+      <div class="col-md-4 col-sm-6 margin-bottom-30">
+        <div class="position-relative">
+          <a>
+          <img class="img-responsive" src="{{ url_for('static', filename='img/1.jpg', _external=True) }}" alt="portfolio">
+          </a>
+          <div class="overlay"></div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/jquery-1.12.3.min.js', _external=True) }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js', _external=True) }}"></script>
+
+<script>
+    var selected = 0;
+    $(".overlay").click(function () {
+        var image = $(this).closest(".position-relative").find("img");
+        if (selected == 3 && !image.hasClass('click')) {
+            alert("Can only select 3");
+            return;
+        }
+        if (image.hasClass('click')) {
+            image.removeClass('click');
+            selected--;
+
+        } else {
+            image.addClass("click");
+            selected++;
+        }
+
+    });
+</script>
+</body>
+</html>

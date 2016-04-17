@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, request
+from flask import Flask, render_template, session, request, redirect, url_for
 from flask_socketio import SocketIO, join_room, emit
 
 app = Flask(__name__)
@@ -15,10 +15,16 @@ def index():
     if request.method == 'POST':
         if 'Speaker' in request.form['submit']:
             session['role'] = 'speaker'
+            return redirect(url_for('selection'))
+
         else:
             session['role'] = 'listener'
         return render_template('chat.html')
     return render_template('index.html')
+
+@app.route("/selection")
+def selection():
+    return render_template('selection.html')
 
 
 @socketio.on('start', namespace='/chat')
