@@ -14,10 +14,10 @@
 <div class="wrapper">
     <div class="main-content container">
         {% for item in imgs %}
-        <div class="col-md-4 col-sm-6 margin-bottom-30">
-            <div class="position-relative">
-                <a>
-                    <img class="img-responsive"
+        <div class="col-md-4 col-sm-6 margin-bottom-30 select-container">
+            <div class="position-relative height">
+                <a class="height">
+                    <img class="img-responsive height"
                          src="{{ url_for('static', filename='img/selection/' + item, _external=True) }}"
                          alt="portfolio">
                 </a>
