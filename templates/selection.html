@@ -62,10 +62,13 @@
         console.log(images);
         $.ajax({
             type: "POST",
+            contentType: 'application/json',
+            dataType : 'json',
             url: "/selection",
-            data: {imgs: images},
+            data: JSON.stringify({imgs: images}),
             success: function () {
-                document.location = '/chat';
+                console.log('Success!');
+                document.location = '/input';
             }
         });
     });
