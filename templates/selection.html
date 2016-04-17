@@ -53,8 +53,9 @@
         }
 
     });
+    var images = [];
     $(".btn").click(function () {
-        var images = [];
+
         $(".click").each(function() {
             images.push($( this ).closest(".position-relative").find("img").attr("src"));
         });
@@ -64,9 +65,8 @@
             url: "/selection",
             data: {imgs: images},
             success: function () {
-                //document.location = '/selection';
+                document.location = '/chat';
             }
-            //dataType: "json"
         });
     });
 </script>

@@ -39,7 +39,6 @@ def selection():
     files = os.listdir(os.path.join(app.static_folder, 'img/selection'))
     if request.method == 'POST':
         # TODO: Receive selected images & populate 'selected_imgs'
-        print request.form['imgs']
         return redirect(url_for('input'))
     return render_template('selection.html', imgs=files)
 
@@ -56,7 +55,8 @@ def input():
 @app.route("/chat", methods=['GET', 'POST'])
 def chat():
     # Populate the form with the image AND text...
-    return render_template('chat.html')
+    files = {'1.jpg': 'lots of text', '2.jpg': 'lots of text2', '3.jpg': 'lots of 3'}
+    return render_template('chat.html', imgs=files)
 
 
 @socketio.on('start', namespace='/chat')
@@ -99,13 +99,9 @@ def message(message):
     # request.sid will only work if it's the speaker sending a message...
     # if it's a listener, then a lookup (associated room) needs to be made.
     role = session['role']
-    print role
     if 'listener' in role:
-        print listeners
         room = listeners[request.sid]
-        print room
     else:
-        print role
         room = request.sid
     emit('message', {'message': message,'role': role}, room=room)
 
