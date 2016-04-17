@@ -16,19 +16,34 @@ def index():
         if 'Speaker' in request.form['submit']:
             session['role'] = 'speaker'
             return redirect(url_for('selection'))
-
         else:
             session['role'] = 'listener'
-        return render_template('chat.html')
+        return redirect(url_for('chat'))
     return render_template('index.html')
 
-@app.route("/selection")
+
+@app.route("/selection", methods=['GET', 'POST'])
 def selection():
+    if request.method == 'POST':
+        return redirect(url_for('input'))
     return render_template('selection.html')
 
 
+@app.route("/input", methods=['GET', 'POST'])
+def input():
+    # Needs a better name...
+    if request.method == 'POST':
+        return redirect(url_for('chat'))
+    return render_template('input.html')
+
+
+@app.route("/chat", methods=['GET', 'POST'])
+def chat():
+    return render_template('chat.html')
+
+
 @socketio.on('start', namespace='/chat')
-def chat(message):
+def room_selection(message):
     # Sent by clients (users) when they select a role (speaker/listener)
     role = session.get('role')
     # The speakers room is going to be the sessionID /chat/<sid>

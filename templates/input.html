@@ -1,0 +1,75 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wavelength</title>
+    <meta name="description" content="Wavelength - Listen and be Heard!">
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700%7cNixie+One%7cTinos:400,400italic' rel='stylesheet'>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css', _external=True) }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/generics.css', _external=True) }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/iconfont.css', _external=True) }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css', _external=True) }}" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+    <div class="main-content container">
+        <div class="row">
+            <div class="chosen col-md-4 col-sm-6 margin-bottom-30">
+                <div class="position-relative">
+                                  <img class="img-responsive" src="{{ url_for('static',
+                filename='img/1.jpg', _external=True) }}" alt="portfolio">
+
+                </div>
+                <textarea class="img-description" name="Text1" cols="40" rows="5" placeholder="Type here!"></textarea>
+                <span class="text-chars">140</span>
+            </div>
+            <div class="chosen col-md-4 col-sm-6 margin-bottom-30">
+                <div class="position-relative">
+
+                                  <img class="img-responsive" src="{{ url_for('static',
+                filename='img/2.jpg', _external=True) }}" alt="portfolio">
+
+
+                </div>
+                <textarea class="img-description" name="Text2" cols="40" rows="5" placeholder="Type here!"></textarea>
+                <span class="text-chars">140</span>
+            </div>
+            <div class="chosen col-md-4 col-sm-6 margin-bottom-30">
+                <div class="position-relative">
+
+                                  <img class="img-responsive" src="{{ url_for('static',
+                filename='img/3.jpg', _external=True) }}" alt="portfolio">
+
+                </div>
+                <textarea class="img-description" name="Text3" cols="40" rows="5" placeholder="Type here!"></textarea>
+                <span class="text-chars">140</span>
+            </div>
+        </div>
+    <form method="POST" class="form-group text-center">
+      <input type="submit" class="btn btn-primary margin-top-20" id="submit"
+      name="submit" value="Submit">
+    </form>
+
+    </div>
+
+</div>
+<!-- jQuery 1.12.3 -->
+<script src="js/jquery-1.12.3.min.js"></script>
+<!-- Bootstrap 3.2.0 -->
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $("textarea").bind("input propertychange", function () {
+        console.log($(this).val().length);
+        var limit = $(this).closest(".chosen").find("span");
+        var chars = limit.text();
+        if (chars < 0) {
+            limit.addClass('red');
+        } else {
+            limit.removeClass('red');
+        }
+        limit.text(140 - $(this).val().length);
+
+    });
+</script>
+</body>
+</html>
