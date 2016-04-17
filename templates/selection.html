@@ -62,12 +62,17 @@
         console.log(images);
         $.ajax({
             type: "POST",
+<<<<<<< HEAD
             url: "/selection",
             data: {imgs: images},
             success: function () {
                 document.location = '/chat';
             },
             contentType: "application/json; charset=utf-8"
+=======
+            url: "{{ url_for('selection') }}",
+            data: {imgs: images}
+>>>>>>> 983fdcdc8e43309fa351d2957babf8553972031d
         });
     });
 </script>

@@ -235,7 +235,7 @@ blockquote {
 /*************************************************************/
 
 img.click {
-    background-color: #fff;
+    background-color: #5cb85c;
     padding: 8px;
 }
 
@@ -471,6 +471,8 @@ input[type="number"] {
 /* M E S S A G E S */
 
 .chat {
+    overflow: auto;
+    max-height: 40em;
     list-style: none;
     background: #dfdfdf;
     margin: 0;
@@ -560,6 +562,23 @@ input[type="number"] {
     border: 5px solid #fff;
     border-left-color: transparent;
     border-bottom-color: transparent;
+}
+.chat-init {
+  justify-content: center;
+  align-items: center;
+}
+.chat-init .author {
+  font-family: 'Open Sans',sans-serif;
+  text-align: center;
+  font-size: 12.5px;
+  line-height: 20px;
+  height: 20px;
+  font-weight: 600;
+  margin-bottom: 1px;
+  color: #BD362F;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .self {
