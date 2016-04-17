@@ -38,6 +38,7 @@ def selection():
     import os
     files = os.listdir(os.path.join(app.static_folder, 'img/selection'))
     if request.method == 'POST':
+        print 'FUCK IT!!'
         # TODO: Receive selected images & populate 'selected_imgs'
         print request.form['imgs']
         return redirect(url_for('input'))
@@ -56,7 +57,8 @@ def input():
 @app.route("/chat", methods=['GET', 'POST'])
 def chat():
     # Populate the form with the image AND text...
-    return render_template('chat.html')
+    files = {'1.jpg': 'lots of text', '2.jpg': 'lots of text2', '3.jpg': 'lots of 3'}
+    return render_template('chat.html', imgs=files)
 
 
 @socketio.on('start', namespace='/chat')

@@ -52,46 +52,20 @@
 <body>
 <div class="main-content container">
     <div class="row">
-        <div class="col-md-4 col-sm-6 margin-bottom-30">
+          {% for image, text in imgs.items() %}
+          <div class="col-md-4 col-sm-6 margin-bottom-30">
             <div class="position-relative">
-
-                <img class="img-responsive" src="{{ url_for('static',
-                filename='img/1.jpg', _external=True) }}" alt="portfolio">
-
-                <div class="overlay overlay-chat">
-                    <div class="portfolio-title text-center">
-                        <h4 class="font-nixie">Bacon ipsum dolor amet pork chop chuck beef pastrami beef ribs rump ham hock. Tenderloin turkey frankfurter spare ribs. Sausage bacon biltong shankle, beef ribs jowl boudin meatball pork belly.</h4>
-                    </div>
-                </div> <!-- /overlay -->
-                </a>
+              <img src="{{ url_for('static', filename='img/selection/' + image, _external=True) }}" class="img-responsive">
             </div>
-        </div>
-        <div class="col-md-4 col-sm-6 margin-bottom-30">
-            <div class="position-relative">
-                <div class="overlay overlay-chat">
-                    <div class="portfolio-title text-center">
-                        <h4 class="font-nixie">Bacon ipsum dolor amet pork chop chuck beef pastrami beef ribs rump ham hock. Tenderloin turkey frankfurter spare ribs. Sausage bacon biltong shankle, beef ribs jowl boudin meatball pork belly.</h4>
-                    </div>
-                </div> <!-- /overlay -->
-                <img class="img-responsive" src="{{ url_for('static', filename='img/2.jpg', _external=True) }}" alt="portfolio">
 
-                </a>
+            <div class="overlay overlay-chat">
+              <div class="portfolio-title text-center">
+                <h4 class="font-nixie">{{ text }}</h4>
+              </div>
             </div>
-        </div>
-        <div class="col-md-4 col-sm-6 margin-bottom-30">
-            <div class="position-relative">
 
-                <img class="img-responsive" src="{{ url_for('static',
-                filename='img/3.jpg', _external=True) }}" alt="portfolio">
-
-                <div class="overlay overlay-chat">
-                    <div class="portfolio-title text-center">
-                        <h4 class="font-nixie">Bacon ipsum dolor amet pork chop chuck beef pastrami beef ribs rump ham hock. Tenderloin turkey frankfurter spare ribs. Sausage bacon biltong shankle, beef ribs jowl boudin meatball pork belly.</h4>
-                    </div>
-                </div> <!-- /overlay -->
-                </a>
-            </div>
-        </div>
+          </div>
+          {% endfor %}
     </div>
   <textarea id="chat" cols="80" rows="20"></textarea><br><br>
 

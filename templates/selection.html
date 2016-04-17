@@ -61,12 +61,8 @@
         console.log(images);
         $.ajax({
             type: "POST",
-            url: "/selection",
-            data: {imgs: images},
-            success: function () {
-                //document.location = '/selection';
-            }
-            //dataType: "json"
+            url: "{{ url_for('selection') }}",
+            data: {imgs: images}
         });
     });
 </script>
