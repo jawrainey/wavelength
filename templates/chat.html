@@ -1,0 +1,117 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Wavelength</title>
+    <meta name="description" content="Wavelength - Listen and be Heard!">
+
+
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700%7cNixie+One%7cTinos:400,400italic'
+          rel='stylesheet' type='text/css'>
+    <!-- Bootstrap 3.2.0 -->
+
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css', _external=True) }}" rel="stylesheet">
+
+    <link href="{{ url_for('static', filename='css/generics.css', _external=True) }}" rel="stylesheet">
+
+    <link href="{{ url_for('static', filename='css/iconfont.css', _external=True) }}" rel="stylesheet">
+
+    <link href="{{ url_for('static', filename='css/style.css', _external=True) }}" rel="stylesheet">
+
+
+  <script src="http://code.jquery.com/jquery-2.2.3.min.js"></script>
+  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+  <script>
+    $(document).ready(function() {
+      socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
+      // CLIENT: emit to open connection and begin conversation.
+      socket.on('connect', function() { socket.emit('start', {}); });
+
+      // SERVER emits initial welcome message to other in room.
+      socket.on('status', function(data) {
+        $('#chat').val($('#chat').val() + data.message + '\n');
+      });
+
+      // CLIENT emits message to be displayed to other users in the room.
+      $('#text').keypress(function(e) {
+        if (e.which == 13 && !e.shiftKey) {
+          socket.emit('message', $('#text').val());
+          $('#text').blur().val('');
+        }
+      });
+
+      // SERVER emits CLIENT message to be displayed to others.
+      socket.on('message', function(data) {
+        $('#chat').val($('#chat').val() + data.message + '\n');
+      });
+
+    });
+  </script>
+</head>
+<body>
+<div class="main-content container">
+    <div class="row">
+        <div class="col-md-4 col-sm-6 margin-bottom-30">
+            <div class="position-relative">
+
+                <img class="img-responsive" src="{{ url_for('static',
+                filename='img/1.jpg', _external=True) }}" alt="portfolio">
+
+                <div class="overlay overlay-chat">
+                    <div class="portfolio-title text-center">
+                        <h4 class="font-nixie">Bacon ipsum dolor amet pork chop chuck beef pastrami beef ribs rump ham hock. Tenderloin turkey frankfurter spare ribs. Sausage bacon biltong shankle, beef ribs jowl boudin meatball pork belly.</h4>
+                    </div>
+                </div> <!-- /overlay -->
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 margin-bottom-30">
+            <div class="position-relative">
+                <div class="overlay overlay-chat">
+                    <div class="portfolio-title text-center">
+                        <h4 class="font-nixie">Bacon ipsum dolor amet pork chop chuck beef pastrami beef ribs rump ham hock. Tenderloin turkey frankfurter spare ribs. Sausage bacon biltong shankle, beef ribs jowl boudin meatball pork belly.</h4>
+                    </div>
+                </div> <!-- /overlay -->
+                <img class="img-responsive" src="{{ url_for('static', filename='img/2.jpg', _external=True) }}" alt="portfolio">
+
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 margin-bottom-30">
+            <div class="position-relative">
+
+                <img class="img-responsive" src="{{ url_for('static',
+                filename='img/3.jpg', _external=True) }}" alt="portfolio">
+
+                <div class="overlay overlay-chat">
+                    <div class="portfolio-title text-center">
+                        <h4 class="font-nixie">Bacon ipsum dolor amet pork chop chuck beef pastrami beef ribs rump ham hock. Tenderloin turkey frankfurter spare ribs. Sausage bacon biltong shankle, beef ribs jowl boudin meatball pork belly.</h4>
+                    </div>
+                </div> <!-- /overlay -->
+                </a>
+            </div>
+        </div>
+    </div>
+  <textarea id="chat" cols="80" rows="20"></textarea><br><br>
+
+    <ol class="chat row" id="chat">
+        <li class="self">
+            <div class="msg">
+                <div class="author">Speaker</div>
+                <p>Do you like bacon?</p>
+                <time>20:18</time>
+            </div>
+        </li>
+        <li class="other">
+            <div class="msg">
+                <div class="author">Listener</div>
+                <p>Of course, I love it!</p>
+                <time>20:17</time>
+            </div>
+        </li>
+    </ol>
+    <input  class="textarea" id="text" type="text" placeholder="Enter your message here">
+</div>
+</body>
+</html>
