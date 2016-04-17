@@ -26,11 +26,13 @@
     $(document).ready(function() {
       socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
       // CLIENT: emit to open connection and begin conversation.
-      socket.on('connect', function() { socket.emit('start', {}); });
+      socket.on('connect', function() { socket.emit('start', {});});
 
       // SERVER emits initial welcome message to other in room.
       socket.on('status', function(data) {
-        $('#chat').val($('#chat').val() + data.message + '\n');
+        var appendMessage = '<li class="chat-init"><div class="msg"><div class="author">System</div><p>'+data.message+'</p><time>'+showTime()+'</time></div></li>';
+        $('#chat2').append(appendMessage).html();
+        // $('#chat1').val($('#chat1').val() + data.message + '\n');
       });
 
       // CLIENT emits message to be displayed to other users in the room.
@@ -43,8 +45,23 @@
 
       // SERVER emits CLIENT message to be displayed to others.
       socket.on('message', function(data) {
-        $('#chat').val($('#chat').val() + data.message + '\n');
+        
+        if(data.role == "listener"){
+          var appendSpeaker = '<li class="other"><div class="msg"><div class="author">Listener</div><p>'+data.message+'</p><time>'+showTime()+'</time></div></li>';
+          $('#chat2').append(appendSpeaker).html();
+        }
+        else{
+          var appendListener = '<li class="self"><div class="msg"><div class="author">Speaker</div><p>'+ data.message +'</p><time>'+showTime()+'</time></div></li>';
+          $('#chat2').append(appendListener).html();
+          
+        }
       });
+
+      function showTime(){
+        var date = new Date();
+        var getTime = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+        return getTime;
+      }
 
     });
   </script>
@@ -67,23 +84,7 @@
           </div>
           {% endfor %}
     </div>
-  <textarea id="chat" cols="80" rows="20"></textarea><br><br>
-
-    <ol class="chat row" id="chat">
-        <li class="self">
-            <div class="msg">
-                <div class="author">Speaker</div>
-                <p>Do you like bacon?</p>
-                <time>20:18</time>
-            </div>
-        </li>
-        <li class="other">
-            <div class="msg">
-                <div class="author">Listener</div>
-                <p>Of course, I love it!</p>
-                <time>20:17</time>
-            </div>
-        </li>
+    <ol class="chat row" id="chat2">
     </ol>
     <input  class="textarea" id="text" type="text" placeholder="Enter your message here">
 </div>

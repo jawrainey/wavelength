@@ -109,7 +109,7 @@ def message(message):
     else:
         print role
         room = request.sid
-    emit('message', {'message': role + ": " + message}, room=room)
+    emit('message', {'message': message,'role': role}, room=room)
 
 if __name__ == "__main__":
     socketio.run(app)
