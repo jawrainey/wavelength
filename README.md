@@ -1,6 +1,6 @@
-## Wavelength -- what's the project all about?
+## Wavelength
 
-Web application built during the [self-harmony hackathon, 2016](http://self-harmony.co.uk/).
+Wavelength is a web application built during the [self-harmony hackathon, 2016](http://self-harmony.co.uk/).
 
 The project provides a chat service for those with depression or anxiety to anonymously
 and openly chat about their concerns or current life circumstances.
