@@ -1,8 +1,9 @@
 ## Wavelength -- what's the project all about?
 
-Self-Hamony A web application created for [Self-Harmony hackathon](http://self-harmony.co.uk/) that enables
-those with depression or anxiety to anonymously and openly chat to interested
-listeners about their concerns or current life circumstances.
+Web application built during the [self-harmony hackathon, 2016](http://self-harmony.co.uk/).
+
+The project provides a chat service for those with depression or anxiety to anonymously
+and openly chat about their concerns or current life circumstances.
 
 This application's novelty is through the speakers selection and association of
 images to represent how they feel at a given point in time, which is used by
